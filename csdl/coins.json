@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "65577fb5eff80db8b4163e2b"
+  },
+  "name": "XHFF",
+  "money": 30000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65578c24cdf6ac7ff00b2004"
+  },
+  "name": "XHFG",
+  "money": 10000,
+  "createdAt": {
+    "$date": "2023-11-17T15:52:04.094Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-17T15:52:04.094Z"
+  }
+}]

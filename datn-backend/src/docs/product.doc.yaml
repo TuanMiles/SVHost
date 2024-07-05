@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: This is Crud Product
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Product
+    description: Quan ly Product
+paths:
+  /products:
+    get:
+      summary: get all products
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: _page
+          schema:
+            type: string
+        - in: query
+          name: _limit
+          schema:
+            type: string
+        - in: query
+          name: q
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /product:
+    post:
+      summary: Create a new Product
+      tags:
+        - Product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+  /product/{id}:
+    get:
+      summary: Get Product by Id
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+    put:
+      summary: Update Product By Id
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+    delete:
+      summary: Delete Product By Id
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+  /deleteFakeProduct/{id}:
+    put:
+      summary: Delete Fake Product By Id
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+  /restoreProduct/{id}:
+    put:
+      summary: Restore Product By Id
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Product'
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name
+        - image
+        - description
+        - price
+        - category
+        - size
+        - topping
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        image:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        price:
+          type: integer
+        category:
+          type: string
+        size:
+          type: array
+          items:
+            type: string
+        topping:
+          type: array
+          items:
+            type: string
+        is_deleted:
+          type: boolean
+          default: false
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

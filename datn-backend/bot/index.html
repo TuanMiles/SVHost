@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <script src="/socket.io/socket.io.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+     <div style="margin: 20px;">
+          <ul id="messages"></ul>
+          <input id="message-input" autocomplete="off" /><button id="send-button">Send</button>
+     </div>
+     <!-- css o day -->
+     <script>
+           const socket = io();
+           $('#send-button').click(() => {
+               const message = $('#message-input').val();
+               let kiemTra =( ["địa", "chỉ"].some(tu => message.includes(tu)) || ["địa", "điểm"].some(tu => message.includes(tu)) )&& ["người", "lấy","hàng"].some(tu => message.includes(tu)) ||["người", "nhận"].some(tu => message.includes(tu))  && ["sđt","số"].some(tu => message.includes(tu)) ||["số", "điện","thoại"].some(tu => message.includes(tu)) ;
+               if(kiemTra){
+               socket.emit('Order', message);
+               }
+               else socket.emit('ChatMessage', message);
+               $('#message-input').val('');
+          });
+          socket.on('ChatMessage', (message) => {
+               $('#messages').append($('<li>').html(message));
+          });
+          function update(){
+            socket.emit('update',{});
+          }
+     </script>
+     <button onclick="update()">update</button>
+     <div style="position: fixed;bottom:0px;background-color: #ccc;">Khi chat đặt hàng vui lòng khi rõ địa chỉ , tên người nhận , số điện thoại  theo thứ tự ví dụ "ship em 1 ly trà sữa tới địa chỉ: hà đông hà nội, sđt: 0999444333 , người nhận: đô đô đẹp trai ạ"</div>
+</body>
+</html>

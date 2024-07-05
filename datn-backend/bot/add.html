@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          span{
+               border: 1px green solid;
+               padding: 4px;
+               margin: 5px;
+          }
+     </style>
+</head>
+<body>
+     <div>
+          <select name="" id="selectClass" onchange="select()">
+               <option value="" selected disabled>chọn class</option>
+          </select>
+     </div>
+     <br>
+     <div>
+          câu hỏi :<input type="text" id="question">
+          class :<input type="text"  id="chooseClass">
+          câu trả lời :<input type="text" id="answer">
+          <button onclick="add()">lưu</button>
+     </div>
+     <h5>danh sách cặp đã train</h5>
+     <div id="table" style="display:grid;width:100%;grid-template-columns: 1fr 1fr 50px;">
+
+     </div>
+     <input type="file" id="file">
+     <button onclick="upload()">tải lên file</button>
+
+     <br>
+
+     <button onclick="train()">Train</button>
+     <script>
+     async function __main__(){
+          await  fetch('http://localhost:3333/api/loadAll?c=1').then(res=>res.json()).then(data=>{
+               data.forEach(element => {
+                    if(!(document.getElementById('selectClass').innerHTML).includes('value="'+element+'"'))document.getElementById('selectClass').innerHTML+=`<option value="${element}">${element}</option>`
+               });
+          })
+          
+     }
+     async function upload(){
+          const fileInput = document.getElementById('file');
+          const selectedFile = fileInput.files[0];
+               if (selectedFile) {
+                    const formData = new FormData();
+                    formData.append('file', selectedFile);
+                    await fetch('/upload', {
+                         method: 'POST',
+                         body: formData
+                    })
+                    alert('tải file thành công')
+               } 
+     }
+     async function add(){
+          const q=document.getElementById('question').value
+          const c=document.getElementById('chooseClass').value
+          const a=document.getElementById('answer').value
+          const aw = await  fetch(`http://localhost:3333/api/add?answer=${a}&question=${q}&classs=${c}`);
+          await select();
+          await __main__();
+          alert('thêm thành công')
+     }
+     async function deletee(question){
+          const a = await  fetch(`http://localhost:3333/api/delete?&question=${question}`);
+          await select();
+          await __main__();
+          alert('thêm thành công')
+     }
+     async function select(){
+          const a = document.getElementById('selectClass');
+          document.getElementById('chooseClass').value=a.value;
+          var table=document.getElementById('table');
+          table.innerHTML=""
+          await  fetch('http://localhost:3333/api/loadAll').then(res=>res.json()).then(data=>{
+               const nData=data[a.value];
+               for(let i = 0 ; i <nData['answer'].length;i++){
+                    table.innerHTML+=`<span>${nData['question'][i]}</span><span>${nData['answer'][i]}</span><button onclick="deletee('${nData['question'][i]}')">xoá</button>`
+               }
+          })
+     }
+     async function train(){
+          const a = await  fetch('http://localhost:3333/api/train');
+          alert('training thành công');
+     }
+     __main__();
+     </script>
+</body>
+</html>

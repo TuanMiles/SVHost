@@ -1,0 +1,294 @@
+[{
+  "_id": {
+    "$oid": "656c4d49af5e774fc32572c6"
+  },
+  "code": "3333gfsgfdGfgrt",
+  "title": "Giảm 5k",
+  "discount": 38,
+  "sale": 5000,
+  "isActive": true,
+  "desc": "Giảm 5k cho đơn hàng từ 0 đồng. Mỗi người dùng chỉ được sử dụng 1 mã duy nhất",
+  "startDate": {
+    "$date": "2023-12-17T09:41:29.781Z"
+  },
+  "endDate": {
+    "$date": "2023-12-18T09:41:29.788Z"
+  },
+  "createdAt": {
+    "$date": "2023-12-03T09:41:29.792Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-18T05:25:58.427Z"
+  },
+  "user_used": [
+    "0865257620",
+    "0865257620",
+    "0373379525",
+    "999999999"
+  ]
+},{
+  "_id": {
+    "$oid": "6570804a00713ac115167704"
+  },
+  "code": "Giam20kvndnehah",
+  "title": "Giảm 20k",
+  "discount": 0,
+  "sale": 20000,
+  "isActive": true,
+  "desc": "Giảm 20k cho đơn hàng từ 0 đồng",
+  "startDate": {
+    "$date": "2023-12-06T14:08:10.338Z"
+  },
+  "endDate": {
+    "$date": "2023-12-13T14:08:10.338Z"
+  },
+  "createdAt": {
+    "$date": "2023-12-06T14:08:10.346Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-10T15:26:30.569Z"
+  },
+  "user_used": [
+    "0865257620",
+    "0865257650",
+    "0865223620",
+    "0865237620",
+    "654f9ee8bcf47ef00074b50d",
+    "0946937768"
+  ]
+},{
+  "_id": {
+    "$oid": "6571e7fa8f07589ca876921d"
+  },
+  "code": "dang1Dang123dx2",
+  "title": "voucher100k",
+  "discount": 328,
+  "sale": 100000,
+  "isActive": true,
+  "desc": "oke",
+  "startDate": {
+    "$date": "2023-12-07T15:42:50.240Z"
+  },
+  "endDate": {
+    "$date": "2023-12-14T15:42:50.244Z"
+  },
+  "createdAt": {
+    "$date": "2023-12-07T15:42:50.246Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-10T15:01:20.076Z"
+  },
+  "user_used": [
+    "0865457620",
+    "654f9ee8bcf47ef00074b50d",
+    "0865237620",
+    "0865257620",
+    "0865237330"
+  ]
+},{
+  "_id": {
+    "$oid": "6577ee69c94b18c97fdf5a90"
+  },
+  "code": "Giam20knehaHaHa",
+  "title": "Giảm 20k nè",
+  "discount": 9,
+  "sale": 20000,
+  "isActive": true,
+  "desc": "Giảm 20k cho đơn hàng từ 0 đồng",
+  "startDate": {
+    "$date": "2023-12-12T05:23:53.718Z"
+  },
+  "endDate": {
+    "$date": "2023-12-19T05:23:53.718Z"
+  },
+  "createdAt": {
+    "$date": "2023-12-12T05:23:53.719Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-18T17:29:46.387Z"
+  },
+  "user_used": [
+    "0373379525",
+    "0983578003",
+    "0946937769",
+    "0865257620",
+    "0975656565",
+    "0987654321",
+    "0981285482",
+    "0975650977"
+  ]
+},{
+  "_id": {
+    "$oid": "65788663460ef224ea8492d5"
+  },
+  "code": "maeras3343dsaFa",
+  "title": "long11 20K",
+  "discount": 30,
+  "sale": 50000,
+  "startDate": {
+    "$date": "2023-12-20T16:12:07.322Z"
+  },
+  "endDate": {
+    "$date": "2023-12-26T16:12:09.369Z"
+  },
+  "isActive": true,
+  "desc": "Voucher moiws",
+  "user_used": [],
+  "createdAt": {
+    "$date": "2023-12-12T16:12:19.929Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-12T16:16:05.490Z"
+  }
+},{
+  "_id": {
+    "$oid": "6578879a460ef224ea849625"
+  },
+  "code": "ret454534rfgFgd",
+  "title": "wret",
+  "discount": 330,
+  "sale": 50000,
+  "startDate": {
+    "$date": "2023-12-12T16:17:02.662Z"
+  },
+  "endDate": {
+    "$date": "2023-12-14T16:17:05.186Z"
+  },
+  "isActive": true,
+  "desc": "gfdg",
+  "user_used": [],
+  "createdAt": {
+    "$date": "2023-12-12T16:17:30.617Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-12T16:17:43.128Z"
+  }
+},{
+  "_id": {
+    "$oid": "657967a884d0919a7e759761"
+  },
+  "code": "Giam26Knehahaha",
+  "title": "Giảm 26k",
+  "discount": 7,
+  "sale": 26000,
+  "startDate": {
+    "$date": "2023-12-17T08:13:16.758Z"
+  },
+  "endDate": {
+    "$date": "2023-12-18T08:13:19.883Z"
+  },
+  "isActive": true,
+  "desc": "Giảm 26 k",
+  "createdAt": {
+    "$date": "2023-12-13T08:13:28.015Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-18T05:52:06.765Z"
+  },
+  "user_used": [
+    "0373379525",
+    "0946937769",
+    "999999999"
+  ]
+},{
+  "_id": {
+    "$oid": "658133dc0a022271cb903503"
+  },
+  "code": "SieuGiamGias30k",
+  "title": "Siêu Giảm Giá 30k",
+  "discount": 7,
+  "sale": 30000,
+  "startDate": {
+    "$date": "2023-12-19T06:10:22.261Z"
+  },
+  "endDate": {
+    "$date": "2023-12-21T06:10:24.639Z"
+  },
+  "isActive": true,
+  "desc": "Giảm ngay 30k cho đơn hàng bất kì",
+  "user_used": [
+    "0975650977",
+    "0865257620",
+    "0566730000"
+  ],
+  "createdAt": {
+    "$date": "2023-12-19T06:10:36.759Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-20T01:24:34.277Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f3f56ab1d2a2a62638f92e"
+  },
+  "code": "vnMeo9782712gia",
+  "title": "MEOMEO97",
+  "discount": 0,
+  "sale": 10000,
+  "startDate": {
+    "$date": "2024-03-16T17:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-03-30T17:00:00.000Z"
+  },
+  "isActive": true,
+  "desc": "vn Meo",
+  "user_used": [
+    "23412323132",
+    "0566730000"
+  ],
+  "createdAt": {
+    "$date": "2024-03-15T07:14:50.422Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-24T11:14:23.472Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f709809de3acc93a57544a"
+  },
+  "code": "W21ydjwgdhwwwww",
+  "title": "GIAM_GIA_25k",
+  "discount": 1,
+  "sale": 10000,
+  "startDate": {
+    "$date": "2024-03-16T17:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-03-25T17:00:00.000Z"
+  },
+  "isActive": true,
+  "desc": "test",
+  "user_used": [],
+  "createdAt": {
+    "$date": "2024-03-17T15:17:20.858Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-17T15:17:20.858Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f71146af305a84135d7af2"
+  },
+  "code": "Q234gregrgrffcs",
+  "title": "vouche",
+  "discount": 110,
+  "sale": 11111,
+  "startDate": {
+    "$date": "2024-03-10T17:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-03-27T17:00:00.000Z"
+  },
+  "isActive": true,
+  "desc": "e",
+  "user_used": [
+    "23412323132"
+  ],
+  "createdAt": {
+    "$date": "2024-03-17T15:50:30.730Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-24T10:13:14.625Z"
+  }
+}]

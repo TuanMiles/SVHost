@@ -1,0 +1,6 @@
+export * from './Auth.slice'
+export * from './cart.slice'
+export * from './categories'
+export * from './order'
+export * from './product.slice'
+export * from './size.slice'

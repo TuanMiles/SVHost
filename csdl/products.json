@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "662dc48408444f5f4cb7b506"
+  },
+  "name": "hihi2",
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/ddx8kaolc/image/upload/v1714285595/l06atw6me7zbtjbscdvp.jpg",
+      "publicId": "l06atw6me7zbtjbscdvp",
+      "filename": "Người Dơi",
+      "_id": {
+        "$oid": "662dec1c5e6a4a2d1baa6ead"
+      }
+    }
+  ],
+  "description": "hihihihi",
+  "sale": 22222,
+  "sizes": [],
+  "toppings": [],
+  "kindOfRoom": [],
+  "is_deleted": false,
+  "is_active": true,
+  "idUser": {
+    "$oid": "65f4fe298d966f059974859a"
+  },
+  "createdAt": {
+    "$date": "2024-04-28T03:37:40.498Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-28T06:28:10.807Z"
+  }
+},{
+  "_id": {
+    "$oid": "662dedb05e6a4a2d1baa6f56"
+  },
+  "name": "san pham a",
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/ddx8kaolc/image/upload/v1714285999/tawxnyevuihegxoo5opr.png",
+      "publicId": "tawxnyevuihegxoo5opr",
+      "filename": "logo_fagopet",
+      "_id": {
+        "$oid": "662dedba5e6a4a2d1baa6f64"
+      }
+    }
+  ],
+  "description": "3213232",
+  "sale": 321312,
+  "sizes": [],
+  "toppings": [],
+  "kindOfRoom": [],
+  "is_deleted": false,
+  "is_active": true,
+  "idUser": {
+    "$oid": "65f4fe298d966f059974859a"
+  },
+  "createdAt": {
+    "$date": "2024-04-28T06:33:20.927Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-28T06:33:30.576Z"
+  }
+}]

@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: This is Crud Size
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api/'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Size
+    description: Quan ly Size
+paths:
+  /sizes:
+    get:
+      summary: Get all sizes
+      tags:
+        - Size
+      responses:
+        200:
+          description: Get all Sizes success
+  /size:
+    post:
+      summary: Create Size
+      tags:
+        - Size
+      requestBody:
+        description: Create Size
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Crate success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Size'
+  /size/{id}:
+    get:
+      summary: Get Size by Id
+      tags:
+        - Size
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Get Size Success
+    put:
+      summary: update Size by Id
+      tags:
+        - Size
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: true
+      responses:
+        200:
+          description: Update Size success
+          content:
+            application/json:
+              $ref: '#/components/schema/Size'
+    delete:
+      summary: Delete Size by Id
+      tags:
+        - Size
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Delete Success
+components:
+  schemas:
+    Size:
+      type: object
+      required:
+        - name
+      properties:
+        _id:
+          type: string
+          description: ID size
+        name:
+          type: string
+          description: name Size
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

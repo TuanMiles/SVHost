@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: This is Crud Topping
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api/'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Topping
+    description: Quan ly topping
+paths:
+  /toppings:
+    get:
+      summary: Get all topping
+      tags:
+        - Topping
+      responses:
+        200:
+          description: Get all Topping success
+  /topping:
+    post:
+      summary: Create Topping
+      tags:
+        - Topping
+      requestBody:
+        description: Create Topping
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+        required: true
+      responses:
+        200:
+          description: Crate success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topping'
+  /topping/{id}:
+    get:
+      summary: Get Topping by Id
+      tags:
+        - Topping
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Get Topping Success
+    put:
+      summary: update Topping by Id
+      tags:
+        - Topping
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: true
+                price:
+                  type: number
+                  required: true
+      responses:
+        200:
+          description: Update Topping success
+          content:
+            application/json:
+              $ref: '#/components/schema/Topping'
+    delete:
+      summary: Delete Topping by Id
+      tags:
+        - Topping
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Delete Success
+components:
+  schemas:
+    Topping:
+      name:
+        type: object
+      properties:
+        _id:
+          type: string
+          description: ID Topping
+        name:
+          type: string
+          description: name Topping
+        price:
+          type: string
+          description: price Topping
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

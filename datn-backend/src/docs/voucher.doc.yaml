@@ -1,0 +1,281 @@
+swagger: '2.0'
+info:
+  title: Voucher API
+  description: API documentation for Voucher management
+  version: 1.0.0
+tags:
+  - name: Voucher
+    description: Các nghiệp vụ liên quan đến voucher
+paths:
+  /voucher:
+    post:
+      tags:
+        - Voucher
+      summary: Thêm mới 1 voucher
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: voucher
+          description: các đối tượng cần thiết để tạo voucher
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Voucher code
+              discount:
+                type: number
+                description: Voucher discount value
+              sale:
+                type: number
+                description: Voucher sale value
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/VoucherResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /vouchers:
+    get:
+      tags:
+        - Voucher
+      summary: Lấy ra tất cả các sản phẩm
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: _page
+          description: Page number for pagination
+          type: integer
+          format: int32
+        - in: query
+          name: _limit
+          description: Number of items per page for pagination
+          type: integer
+          format: int32
+        - in: query
+          name: q
+          description: Search query for Voucher code
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VoucherListResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    /active:
+      get:
+        tags:
+          - Voucher
+        summary: Get active Vouchers
+        produces:
+          - application/json
+        parameters:
+          - in: query
+            name: _page
+            description: Page number for pagination
+            type: integer
+            format: int32
+          - in: query
+            name: _limit
+            description: Number of items per page for pagination
+            type: integer
+            format: int32
+          - in: query
+            name: q
+            description: Search query for Voucher code
+            type: string
+        responses:
+          200:
+            description: OK
+            schema:
+              $ref: '#/definitions/VoucherListResponse'
+          500:
+            description: Internal Server Error
+            schema:
+              $ref: '#/definitions/ErrorResponse'
+  /vouchers/active:
+    get:
+      tags:
+        - Voucher
+      summary: Lấy ra các voucher đang hoạt động (có thể sử dụng)
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: _page
+          description: Page number for pagination
+          type: integer
+          format: int32
+        - in: query
+          name: _limit
+          description: Number of items per page for pagination
+          type: integer
+          format: int32
+        - in: query
+          name: q
+          description: Search query for Voucher code
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VoucherListResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /voucher/{id}:
+    get:
+      tags:
+        - Voucher
+      summary: Lấy ra 1 voucher theo id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Voucher ID
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VoucherResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      tags:
+        - Voucher
+      summary: Cập nhật 1 voucher theo id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Voucher ID
+          required: true
+          type: string
+        - in: body
+          name: voucher
+          description: Updated Voucher object
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Voucher code
+              discount:
+                type: number
+                description: Voucher discount value
+              sale:
+                type: number
+                description: Voucher sale value
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VoucherResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Voucher not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      tags:
+        - Voucher
+      summary: Xóa 1 voucher theo id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Voucher ID
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VoucherResponse'
+        404:
+          description: Voucher not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+definitions:
+  VoucherResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Voucher'
+  VoucherListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Voucher'
+      pagination:
+        type: object
+        properties:
+          total:
+            type: number
+          limit:
+            type: number
+          page:
+            type: number
+          pages:
+            type: number
+  Voucher:
+    type: object
+    properties:
+      _id:
+        type: string
+      code:
+        type: string
+      discount:
+        type: number
+      sale:
+        type: number
+      startDate:
+        type: string
+        format: date-time
+      endDate:
+        type: string
+        format: date-time
+      isActive:
+        type: boolean
+  ErrorResponse:
+    type: object
+    properties:
+      message:
+        type: string

@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "658162cf72c3c55783275343"
+  },
+  "name": "Super Sundae Mâm Xôi",
+  "items": [
+    {
+      "image": "https://res.cloudinary.com/ddx8kaolc/image/upload/v1702919934/a7kzufuiy7st4qqqj5s8.jpg",
+      "product": {
+        "$oid": "65807f0444176eadbe1086be"
+      },
+      "quantity": 3,
+      "price": 12000,
+      "size": {
+        "$oid": "65807f0444176eadbe1086bc"
+      },
+      "toppings": [],
+      "total": 36000,
+      "_id": {
+        "$oid": "658162cf72c3c55783275344"
+      }
+    }
+  ],
+  "user": {
+    "$oid": "6571dc6656547def432fd3a3"
+  },
+  "createdAt": {
+    "$date": "2023-12-19T09:30:55.120Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-19T09:30:55.120Z"
+  }
+}]

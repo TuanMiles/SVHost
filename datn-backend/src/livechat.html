@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="/Users/kous1608/Tài liệu/NODEJS/t1/paymen_tesst_ts/2/socket.io/socket.io.js"></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script><!DOCTYPE html>
+    <html>
+    <head>
+      <title>Chat App</title>
+      <style>
+        #messages{
+          height:500px;
+          border:2px green solid;
+          border-radius: 10px;
+          width:30%;
+          overflow-y: scroll;
+    
+        }
+        #messages li{
+          list-style: none;
+    
+        }
+       
+        .left str{
+          color:green;
+        }
+        .right str{
+          color:red;
+        }
+      </style>
+    </head>
+    
+    <body>
+      <h1>Trang hỗ trợ thành viên</h1><br>
+    
+      <center>
+      <ul id="messages">
+    
+      </ul>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Hãy kể rõ chi tiết vấn đề bạn mắc phải/><button>Gửi</button>
+      </form>
+    </center>
+      <!-- <script src="/socket.io/socket.io.js"></script> -->
+      <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+      <script>
+        const socket = io();
+        const messagesList = document.getElementById('messages');
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+      
+        // console.log(username);
+        var method="";
+        var count=0;
+        fetch("/session").then(response=>response.json())
+        .then(data=>{
+          var username=data.username;
+       
+        console.log(username)
+      
+      function setup(username){
+        fetch("/clientChat").then(response=>response.json())
+        .then(data=>{
+          data.forEach(s=>{
+            if(s.username==username || s.reciever=='to'+username){
+              const li = document.createElement('li');
+              if(s.reciever!="toAdmin"){
+                li.classList.add("right");
+                li.innerHTML = `<str>ADMIN ${s.username}</str>: ${s.text}`;
+              }
+              else{
+                li.classList.add("left");
+                li.innerHTML = `<str>Bạn</str>: ${s.text}`;
+              }
+              document.getElementById('messages').appendChild(li);
+            }
+          })
+        })
+      }
+    
+    
+    
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const text = input.value;
+          if (text) {
+            socket.emit("chatMsg", { text,username });
+            input.value = '';
+          }
+        });
+        setup(username)
+    
+      
+        socket.on("chatMsg", message => {
+          if(message.username==username||message.to=='to'+username){
+    
+            const li = document.createElement('li');
+            if(message.to=="toAdmin"){
+                li.classList.add("left");
+                li.innerHTML = `<str>Bạn</str>: ${message.text}`;
+              }
+              else{
+                li.classList.add("right");
+                li.innerHTML = `<str>ADMIN ${message.username}</str>: ${message.text}`;
+              }
+            messagesList.appendChild(li);
+          }
+        });
+    
+    
+        // socket.on('user joined', message => {
+        //   const li = document.createElement('li');
+        //   li.textContent = message;
+          
+        //   messagesList.appendChild(li);
+        // });
+    
+        })//fetch username
+    
+    
+      </script>
+    </body>
+    </html>
+    
+    const socket = io();
+    const messagesList = document.getElementById('messages');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    
+    // const username = prompt('Enter your username:');
+    var username="s"
+    socket.emit('join', username);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const text = input.value;
+      if (text) {
+        socket.emit('chat message', { text });
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', message => {
+      const li = document.createElement('li');
+      li.textContent = `${message.username}: ${message.text}`;
+      messagesList.appendChild(li);
+    });
+
+    socket.on('user joined', message => {
+      const li = document.createElement('li');
+      li.textContent = message;
+      messagesList.appendChild(li);
+    });
+
+    socket.on('user left', message => {
+      const li = document.createElement('li');
+      li.textContent = message;
+      messagesList.appendChild(li);
+    });
+  </script>
+</body>
+</html>

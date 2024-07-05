@@ -1,0 +1,412 @@
+openapi: 3.0.3
+info:
+  title: This is Crud User
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Authotication
+    # description: Authentication is the process of verifying the identity of a user or process.
+paths:
+  /users:
+    get:
+      summary: Lấy danh sách người dùng
+      tags:
+        - Authotication
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - in: query
+          name: _sort
+          schema:
+            type: string
+          description: Sắp xếp theo trường (mặc định là 'createAt')
+        - in: query
+          name: _order
+          schema:
+            type: string
+          description: Thứ tự sắp xếp ('asc' hoặc 'desc', mặc định là 'asc')
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+          description: Số lượng người dùng trên mỗi trang (mặc định là 10)
+        - in: query
+          name: _page
+          schema:
+            type: integer
+          description: Số trang (mặc định là 1)
+  /users/{id}:
+    get:
+      summary: Lấy thông tin người dùng theo ID
+      tags:
+        - Authotication
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  user:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Không tìm thấy người dùng
+
+    put:
+      summary: Cập nhật thông tin người dùng
+      tags:
+        - Authotication
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  user:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Xóa người dùng
+      tags:
+        - Authotication
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  user:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /register:
+    post:
+      summary: Đăng ký người dùng
+      tags:
+        - Authotication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterInput'
+      responses:
+        201:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: ID của người dùng
+                      username:
+                        type: string
+                        description: Tên đăng nhập của người dùng
+                      account:
+                        type: string
+                        description: account người dùng
+                      # phone:
+                      #   type: string
+                      #   description: Số điện thoại của người dùng
+                      address:
+                        type: string
+                        description: Địa chỉ của người dùng
+                      slug:
+                        type: string
+                        description: Slug của người dùng
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /login:
+    post:
+      summary: Đăng nhập
+      tags:
+        - Authotication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInput'
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: ID của người dùng
+                      username:
+                        type: string
+                        description: Tên đăng nhập của người dùng
+                      slug:
+                        type: string
+                        description: Slug của người dùng
+                      email:
+                        type: string
+                        description: Địa chỉ email của người dùng
+                      phone:
+                        type: string
+                        description: Số điện thoại của người dùng
+                      address:
+                        type: string
+                        description: Địa chỉ của người dùng
+                      accessToken:
+                        type: string
+                        description: Mã thông báo truy cập
+                      refreshToken:
+                        type: string
+                        description: Mã thông báo làm mới
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /refreshToken:
+    # /refreshToken/{token}:
+    get:
+      summary: Lấy mã thông báo truy cập mới từ mã thông báo làm mới
+      tags:
+        - Authotication
+      # parameters:
+      #   - in: path
+      #     name: token
+      #     schema:
+      #       type: string
+      #     required: true
+      #     description: Mã thông báo làm mới
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+                  data:
+                    type: string
+                    description: Mã thông báo truy cập mới
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /updatePassword:
+    put:
+      summary: Cập nhật mật khẩu người dùng
+      tags:
+        - Authotication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: Mật khẩu hiện tại của người dùng
+                passwordNew:
+                  type: string
+                  description: Mật khẩu mới của người dùng
+      responses:
+        200:
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Thông báo thành công
+        400:
+          description: Lỗi client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /changeRoleUser/{id}/{idRole}:
+    put:
+      summary: update status Role
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+        - in: path
+          name: idRole
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Update Role Success
+components:
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID của người dùng
+        username:
+          type: string
+          description: Tên đăng nhập của người dùng
+        email:
+          type: string
+          description: Địa chỉ email của người dùng
+        phone:
+          type: string
+          description: Số điện thoại của người dùng
+        address:
+          type: string
+          description: Địa chỉ của người dùng
+        slug:
+          type: string
+          description: Slug của người dùng
+
+    RegisterInput:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Tên đăng nhập
+        email:
+          type: string
+          description: Địa chỉ email
+        password:
+          type: string
+          description: Mật khẩu
+        address:
+          type: string
+          description: Địa chỉ
+        phone:
+          type: string
+          description: Số điện thoại
+
+    LoginInput:
+      type: object
+      properties:
+        account:
+          type: string
+          description: Địa chỉ email
+        password:
+          type: string
+          description: Mật khẩu
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Thông báo lỗi
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

@@ -1,0 +1,242 @@
+openapi: 3.0.3
+info:
+  description: 'Quản lý API dự án framework 2'
+  version: '1.0.0'
+  title: 'Swagger Quản lý dự án framework 2'
+  contact:
+    email: 'hungdang02042003@gmail.com'
+  license:
+    name: 'Nginx'
+tags:
+  - name: Categories
+    description: API quản lý danh mục
+paths:
+  /api/category:
+    post:
+      summary: Tạo mới một danh mục
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryInput'
+      responses:
+        '201':
+          description: Đã tạo thành công danh mục mới
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Lỗi trong quá trình tạo danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/categories:
+    get:
+      summary: Lấy tất cả danh sách các danh mục
+      tags:
+        - Categories
+      parameters:
+        - in: query
+          name: _page
+          schema:
+            type: integer
+            minimum: 1
+            description: Số trang muốn lấy (mặc định là 1)
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+            minimum: 1
+            description: Số lượng danh mục trên mỗi trang (mặc định là 10)
+        - in: query
+          name: q
+          schema:
+            type: string
+            description: Từ khóa tìm kiếm danh mục
+      responses:
+        '200':
+          description: Danh sách các danh mục đã lấy thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryPagination'
+        '400':
+          description: Lỗi trong quá trình lấy danh sách danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/categories/{id}:
+    get:
+      summary: Lấy thông tin chi tiết của một danh mục
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: ID của danh mục
+      responses:
+        '200':
+          description: Thông tin chi tiết của danh mục đã lấy thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Lỗi trong quá trình lấy thông tin danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                put:
+    put:
+      summary: Cập nhật thông tin của một danh mục
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: ID của danh mục
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/components/schemas/CategoryInput'
+      responses:
+        '201':
+          description: Thông tin của danh mục đã được cập nhật thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Lỗi trong quá trình cập nhật danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Xóa một danh mục (Xóa thực sự)
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: ID của danh mục
+      responses:
+        '201':
+          description: Xóa danh mục thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Lỗi trong quá trình xóa danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/categories/{id}/fake-delete:
+    put:
+      summary: Xóa một danh mục (Xóa mềm)
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: ID của danh mục
+      responses:
+        '201':
+          description: Xóa mềm danh mục thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Lỗi trong quá trình xóa danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/categories/{id}/restore:
+    put:
+      summary: Khôi phục lại một danh mục
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: ID của danh mục
+      responses:
+        '201':
+          description: Khôi phục danh mục thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Lỗi trong quá trình khôi phục danh mục
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID của danh mục
+        name:
+          type: string
+          description: Tên danh mục
+        slug:
+          type: string
+          description: Slug của danh mục
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+          description: Danh sách sản phẩm liên kết với danh mục
+        is_deleted:
+          type: boolean
+          description: Trạng thái xóa danh mục
+        createdAt:
+          type: string
+          format: date-time
+          description: Ngày tạo danh mục
+        updatedAt:
+          type: string
+          format: date-time
+          description: Ngày cập nhật danh mục
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

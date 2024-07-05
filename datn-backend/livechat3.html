@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      /* #messages {
+        height: 500px;
+        border: 2px green solid;
+        border-radius: 10px;
+        width: 50%;
+        overflow-y: scroll;
+      } */
+      #messages li {
+        list-style: none;
+      }
+
+      /* .left str {
+        color: green;
+      } */
+      /* .left {
+        width: 100%;
+        border:1px green solid;
+      } */
+      /* .right str {
+        color: red;
+      } */
+      .noImg {
+        height: 70px;
+        margin: 1px;
+      }
+
+      #previewContainer {
+        flex-wrap: wrap;
+        width: 50%;
+        padding: 10px;
+        display: none;
+      }
+      #previewContainer img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin: 5px;
+      }
+
+      .previewImage {
+        height: 70px;
+        margin: 1px;
+      }
+      #messages {
+        scroll-behavior: smooth;
+      }
+      #messages::-webkit-scrollbar {
+        width: 5px;
+      }
+      #messages::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+      #messages::-webkit-scrollbar-thumb {
+        background: #d9d9d9;
+        border-radius: 10px !important;
+      }
+    </style>
+  </head>
+
+  <body class="mx-auto">
+    <!-- <h1>Trang hỗ trợ thành viên</h1> -->
+    <div class="chat-container relative min-h-[550px]">
+      <div
+        class="loading absolute top-0 right-0 left-0 bottom-0 bg-white z-[15] flex items-center justify-center hidden"
+      >
+        <img src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="" width="100" />
+      </div>
+      <header class="h-[50px] shadow-lg bg-white">
+        <div class="flex items-center gap-x-2">
+          <img
+            class="w-9 h-9 rounded-full object-cover"
+            src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png"
+            alt=""
+          />
+          <h3>Nhân viên hỗ trợ</h3>
+        </div>
+      </header>
+      <div>
+        <ul
+          id="messages"
+          class="max-h-[500px] overflow-y-auto overflow-x-hidden max-w-[414px] pb-[60px] flex flex-col"
+        ></ul>
+
+        <div
+          id="previewContainer"
+          class="fixed left-0 bottom-[60px] bg-white !w-full gap-x-2"
+        ></div>
+        <div
+          class="message-form absolute bottom-0 w-full flex items-center justify-center bg-white py-2"
+        >
+          <form id="form" action="" class="flex items-center w-full">
+            <input
+              class="outline-none flex-1 block h-10 bg-gray-100 pl-[10px] pr-5 border border-[#D7B978] rounded resize-none placeholder:text-sm"
+              id="input"
+              autocomplete="off"
+              placeholder="Hãy nhập thông tin cần hỗ trợ..."
+            />
+            <label
+              for="fileInput"
+              class="flex items-center justify-center w-10 h-10 mx-2 hover:bg-[#D7B978] group transition-all"
+            >
+              <i
+                class="fa-solid fa-image text-[#D7B978] cursor-pointer transition-all group-hover:text-white"
+              ></i>
+              <input hidden type="file" id="fileInput" multiple /> </label
+            ><button class="w-10 h-10 bg-[#D7B978]">
+              <i class="fa-solid fa-paper-plane text-white"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- <form id="form3">
+          <input type="file" id="fileInput" multiple />
+          <button>Tải lên tệp</button>
+        </form> -->
+      </div>
+      <button
+        style="display: none"
+        id="btnScrollBottom"
+        class="absolute right-[5px] bottom-[70px] w-9 h-9 rounded-full group border border-[#D7B978] bg-white shadow-lg hover:bg-[#D7B978] transition-all"
+      >
+        <i class="fa-solid fa-arrow-down text-[#D7B978] group-hover:text-white transition-all"></i>
+      </button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+      function a() {
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('previewContainer');
+
+        fileInput.addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(event) {
+          previewContainer.style.display = 'flex';
+          // previewContainer.style.border = '1px green solid';
+          previewContainer.innerHTML = '';
+
+          const files = event.target.files;
+          for (const file of files) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const previewImage = document.createElement('img');
+              previewImage.className = 'previewImage';
+              previewImage.src = e.target.result;
+
+              previewContainer.appendChild(previewImage);
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      }
+      a();
+    </script>
+    <script>
+      const socket = io();
+      const messagesList = document.getElementById('messages');
+      const form = document.getElementById('form');
+      const btnScrollBottom = document.querySelector('#btnScrollBottom');
+      // const form3 = document.getElementById('form3');
+      btnScrollBottom.addEventListener('click', () => {
+        if (messagesList) {
+          messagesList.scrollTop = messagesList.scrollHeight;
+        }
+      });
+      const input = document.getElementById('input');
+      messagesList.addEventListener('scroll', () => {
+        if (btnScrollBottom) {
+          if (
+            Math.floor(messagesList.scrollHeight - messagesList.scrollTop) ===
+            messagesList.clientHeight
+          ) {
+            btnScrollBottom.style.display = 'none';
+          } else {
+            btnScrollBottom.style.display = 'block';
+          }
+        }
+      });
+      const loadinng = document.querySelector('.loading');
+      loadinng.style.display = 'flex';
+      fetch('/session')
+        .then((response) => response.json())
+        .then((data) => {
+          var username = data.username;
+
+          function setup(username) {
+            fetch('/clientChat')
+              .then((response) => response.json())
+              .then((data) => {
+                data.forEach((s) => {
+                  const listClass = ['py-4'];
+                  if (s.username == username || s.reciever == 'to' + username) {
+                    const li = document.createElement('li');
+                    if (s.reciever === 'toAdmin') {
+                      li.classList.add('right', 'self-end', ...listClass);
+                      li.innerHTML = /*html*/ `
+                        <div class="flex items-end gap-3">      
+                          <div class="flex flex-col gap-y-[5px]">
+                            <div class="relative px-5 py-3 text-white rounded-lg rounded-bl-none rounded-br-none bg-[#D7B978]">
+                              <p class='mb-0 max-w-[300px]'>${s.text}</p>
+                              <div class="before:content-[''] before:absolute before:border-[5px] before:border-transparent before:-bottom-2 before:right-0 before:border-r-[#D7B978] before:border-t-[#D7B978]"></div>
+                             
+                            </div>
+                            <div class="font-medium text-gray-700 text-[12px] text-right">${s.username}</div>
+                          </div>
+                          <div>
+                            <img class='rounded-full h-9 w-9' src="https://ui-avatars.com/api/?name=${s.username}"/>
+                          </div>
+                        </div>
+                      `;
+                      // li.innerHTML = /*html*/ `<str>ADMIN</str>:${s.text}`;
+                    } else {
+                      li.classList.add('left', 'self-start', ...listClass);
+                      li.innerHTML = /*html*/ `
+                      <div class="flex items-end gap-3">
+                        <div>
+                            <img class='rounded-full h-9 w-9' src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png"/>
+                          </div>
+                        <div class="flex flex-col gap-y-[5px]">
+                            <div class="relative px-5 py-3 text-white rounded-lg rounded-bl-none rounded-br-none bg-[#EFF2F7]">
+                              <p class='mb-0 max-w-[300px] text-black'>${s.text}</p>
+                              <div class="before:content-[''] before:absolute before:border-[5px] before:border-transparent before:-bottom-2 before:left-0 before:border-l-[#EFF2F7] before:border-t-[#EFF2F7]"></div>
+                            </div>
+                            <div class="font-medium text-gray-700 text-[12px] text-left">Nhân viên</div>
+                          </div>
+                         
+                          
+                        </div>
+                      `;
+                      // li.innerHTML = `<str>Bạn</str>: ${s.text}`;
+                    }
+                    messagesList.appendChild(li);
+                  }
+                });
+                loadinng.style.display = 'none';
+              });
+          }
+
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const textInput = input.value;
+            const textInpFile = document.getElementById('previewContainer').innerHTML;
+            if (textInput && textInpFile) {
+              socket.emit('chatMsg', { text: `${textInpFile} <br/> ${textInput}`, username });
+              input.value = '';
+              document.getElementById('fileInput').value = '';
+              document.getElementById('previewContainer').innerHTML = '';
+              document.getElementById('previewContainer').style.display = 'none';
+              return;
+            }
+            if (textInput) {
+              socket.emit('chatMsg', { text: textInput, username });
+              input.value = '';
+              // if (textInpFile !== '') {
+              //   socket.emit('chatMsg', { text: textInpFile, username });
+              //   document.getElementById('previewContainer').innerHTML = '';
+              //   document.getElementById('fileInput').value = '';
+              // }
+            }
+          });
+          // form3.addEventListener('submit', (e) => {
+          //   e.preventDefault();
+          //   const text = document.getElementById('previewContainer').innerHTML;
+          //   if (text != '') {
+          //     socket.emit('chatMsg', { text, username });
+          //     document.getElementById('previewContainer').innerHTML = '';
+          //     document.getElementById('fileInput').value = '';
+          //   }
+          // });
+
+          setup(username);
+
+          socket.on('chatMsg', (message) => {
+            const listClass = ['py-4'];
+            if (message.username == username || message.to == 'to' + username) {
+              const li = document.createElement('li');
+              if (message.to === 'toAdmin') {
+                li.classList.add('right', 'self-end', ...listClass);
+                li.innerHTML = /*html*/ `
+                        <div class="flex items-end gap-3">      
+                          <div class="flex flex-col gap-y-[5px]">
+                            <div class="relative px-5 py-3 text-white rounded-lg rounded-bl-none rounded-br-none bg-[#D7B978]">
+                              <p class='mb-0 max-w-[300px]'>${message.text}</p>
+                              <div class="before:content-[''] before:absolute before:border-[5px] before:border-transparent before:-bottom-2 before:right-0 before:border-r-[#D7B978] before:border-t-[#D7B978]"></div>
+                             
+                            </div>
+                            <div class="font-medium text-gray-700 text-[12px] text-right">${message.username}</div>
+                          </div>
+                          <div>
+                            <img class='rounded-full h-9 w-9' src="https://ui-avatars.com/api/?name=${message.username}"/>
+                          </div>
+                        </div>
+                      `;
+                // li.innerHTML = `<str>Bạn</str>: ${message.text}`;
+              } else {
+                li.classList.add('right', 'self-start', ...listClass);
+                li.innerHTML = /*html*/ `
+                      <div class="flex items-end gap-3">
+                        <div>
+                            <img class='rounded-full h-9 w-9' src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png"/>
+                          </div>
+                        <div class="flex flex-col gap-y-[5px]">
+                            <div class="relative px-5 py-3 text-white rounded-lg rounded-bl-none rounded-br-none bg-[#EFF2F7]">
+                              <p class='mb-0 max-w-[300px] text-black'>${message.text}</p>
+                              <div class="before:content-[''] before:absolute before:border-[5px] before:border-transparent before:-bottom-2 before:left-0 before:border-l-[#EFF2F7] before:border-t-[#EFF2F7]"></div>
+                            </div>
+                            <div class="font-medium text-gray-700 text-[12px] text-left">Nhân viên</div>
+                          </div>
+                         
+                          
+                        </div>
+                      `;
+                // li.innerHTML = `<str>ADMIN</str>:${message.text}`;
+              }
+              messagesList.appendChild(li);
+              messagesList.scrollTop = messagesList.scrollHeight;
+            }
+          });
+
+          // socket.on('user joined', message => {
+          //   const li = document.createElement('li');
+          //   li.textContent = message;
+
+          //   messagesList.appendChild(li);
+          // });
+        }); //fetch username
+    </script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: This is UploadFile
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api/'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: File
+    description: Quan ly Size
+paths:
+  /uploadImages:
+    post:
+      summary: Upload File Images
+      tags:
+        - File
+      requestBody:
+        description: Up File
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        200:
+          description: Crate success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+  /updateImages/{publicdId}:
+    put:
+      summary: Update File Images
+      tags:
+        - File
+      description: Update File
+      parameters:
+        - in: path
+          name: publicdId
+          schema:
+            type: string
+            required: true
+      requestBody:
+        description: Up File
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        200:
+          description: Crate success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+  /deleteImages/{publicId}:
+    delete:
+      summary: Delete File Images
+      tags:
+        - File
+      description: Delete File
+      parameters:
+        - in: path
+          name: publicId
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Delete success
+
+components:
+  schemas:
+    File:
+      type: object
+      properties:
+        urls:
+          type: string
+          description: path file
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

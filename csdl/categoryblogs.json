@@ -1,0 +1,118 @@
+[{
+  "_id": {
+    "$oid": "654817d0de57877b933a8309"
+  },
+  "name": "Câu chuyện thương hiệu",
+  "is_deleted": false,
+  "is_active": true,
+  "blogs": [
+    {
+      "$oid": "654a8bc49f3e56c0540925cd"
+    },
+    {
+      "$oid": "654a8f459f3e56c054092654"
+    },
+    {
+      "$oid": "654a91208c1d1e05e6649e2f"
+    },
+    {
+      "$oid": "655232629191ac2b3582ab70"
+    },
+    {
+      "$oid": "654fa2974378aae90f4853a5"
+    },
+    {
+      "$oid": "654abc7b8c1d1e05e664a18f"
+    },
+    {
+      "$oid": "65626aba2b19413ebd9f00b6"
+    },
+    {
+      "$oid": "65703a745f65584abe342482"
+    },
+    {
+      "$oid": "6571df358f07589ca87685a9"
+    },
+    {
+      "$oid": "654a91478c1d1e05e6649e63"
+    },
+    {
+      "$oid": "6544fc08d8555940da493deb"
+    },
+    {
+      "$oid": "6544fc94d8555940da493e2e"
+    },
+    {
+      "$oid": "65f3ae09b1d2a2a62638ec0e"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-11-05T22:31:44.088Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T02:10:17.367Z"
+  }
+},{
+  "_id": {
+    "$oid": "662ca40e30f8eaf10f9f9894"
+  },
+  "name": "Cây cảnh",
+  "is_deleted": false,
+  "is_active": true,
+  "blogs": [
+    {
+      "$oid": "662ccd443edb5f75ac53c613"
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-04-27T07:06:54.782Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-27T10:30:56.861Z"
+  }
+},{
+  "_id": {
+    "$oid": "662ca45630f8eaf10f9f98c6"
+  },
+  "name": "Cây xanh 22",
+  "is_deleted": false,
+  "is_active": true,
+  "blogs": [
+    {
+      "$oid": "662cb14530f8eaf10f9f9a20"
+    },
+    {
+      "$oid": "662cb270cd3debe4c85ec4da"
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-04-27T07:08:06.295Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-27T10:28:23.972Z"
+  },
+  "id_user": {
+    "$oid": "65f4fe298d966f059974859a"
+  }
+},{
+  "_id": {
+    "$oid": "662e60319791506cecd3fd19"
+  },
+  "name": "chăm sóc cây xanh 2",
+  "is_deleted": false,
+  "is_active": true,
+  "blogs": [
+    {
+      "$oid": "662e606c9791506cecd3fd84"
+    }
+  ],
+  "id_user": {
+    "$oid": "6527baf2654b2fa462bd84e8"
+  },
+  "createdAt": {
+    "$date": "2024-04-28T14:41:53.141Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-28T14:42:52.689Z"
+  }
+}]

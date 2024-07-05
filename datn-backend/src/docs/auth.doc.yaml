@@ -1,0 +1,139 @@
+openapi: 3.0.3
+tags:
+  - name: Authentication
+    description: Authentication is the process of verifying the identity of a user or process.
+paths:
+  /sign-in:
+    post:
+      summary: Đăng nhập
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInput'
+      responses:
+        '200':
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Lỗi trong quá trình đăng nhập
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /sign-up:
+    post:
+      summary: Đăng ký tài khoản
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterInput'
+      responses:
+        '201':
+          description: Tài khoản đã được đăng ký thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Lỗi trong quá trình đăng ký tài khoản
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    RegisterInput:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Tên đăng nhập của người dùng
+        email:
+          type: string
+          description: Địa chỉ email của người dùng
+        password:
+          type: string
+          description: Mật khẩu của người dùng
+        address:
+          type: string
+          description: Địa chỉ của người dùng
+        phone:
+          type: string
+          description: Số điện thoại của người dùng
+
+    LoginInput:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Địa chỉ email của người dùng
+        password:
+          type: string
+          description: Mật khẩu của người dùng
+
+    UserResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID của người dùng
+        username:
+          type: string
+          description: Tên đăng nhập của người dùng
+        email:
+          type: string
+          description: Địa chỉ email của người dùng
+        address:
+          type: string
+          description: Địa chỉ của người dùng
+        phone:
+          type: string
+          description: Số điện thoại của người dùng
+        role:
+          type: string
+          description: Vai trò của người dùng
+        createdAt:
+          type: string
+          format: date-time
+          description: Ngày và giờ tạo người dùng
+        updatedAt:
+          type: string
+          format: date-time
+          description: Ngày và giờ cập nhật người dùng
+
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: Mã thông báo truy cập
+        data:
+          $ref: '#/components/schemas/UserResponse'
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Thông báo lỗi
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

@@ -1,0 +1,143 @@
+[{
+  "_id": {
+    "$oid": "65f3c4feb1d2a2a62638f677"
+  },
+  "name": "5KG",
+  "price": 10000,
+  "productId": [
+    {
+      "$oid": "65f3f2e6b1d2a2a62638f7a1"
+    },
+    {
+      "$oid": "65f3f4ebb1d2a2a62638f802"
+    },
+    {
+      "$oid": "65f41d495f9742771476ccd1"
+    },
+    {
+      "$oid": "65f41f5d5f9742771476cd54"
+    },
+    {
+      "$oid": "65f41fd379a4de563d46674a"
+    },
+    {
+      "$oid": "65f420c96dfde49126fcbf79"
+    }
+  ],
+  "is_default": true,
+  "createdAt": {
+    "$date": "2024-03-15T03:48:14.567Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T10:33:33.813Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f3c50db1d2a2a62638f67b"
+  },
+  "name": "10Kg",
+  "price": 20000,
+  "productId": [
+    {
+      "$oid": "65f3f2e6b1d2a2a62638f7a1"
+    },
+    {
+      "$oid": "65f3f4ebb1d2a2a62638f802"
+    },
+    {
+      "$oid": "65f41d495f9742771476ccd1"
+    },
+    {
+      "$oid": "65f41f5d5f9742771476cd54"
+    },
+    {
+      "$oid": "65f41fd379a4de563d46674a"
+    }
+  ],
+  "is_default": true,
+  "createdAt": {
+    "$date": "2024-03-15T03:48:29.325Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T10:33:33.816Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f3c51ab1d2a2a62638f67f"
+  },
+  "name": "15KG",
+  "price": 20000,
+  "productId": [
+    {
+      "$oid": "65f41d495f9742771476ccd1"
+    },
+    {
+      "$oid": "65f41f5d5f9742771476cd54"
+    },
+    {
+      "$oid": "65f41fd379a4de563d46674a"
+    }
+  ],
+  "is_default": true,
+  "createdAt": {
+    "$date": "2024-03-15T03:48:42.253Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T10:33:33.817Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f3c527b1d2a2a62638f683"
+  },
+  "name": "20Kg",
+  "price": 30000,
+  "productId": [
+    {
+      "$oid": "65f41d495f9742771476ccd1"
+    },
+    {
+      "$oid": "65f41f5d5f9742771476cd54"
+    },
+    {
+      "$oid": "65f41fd379a4de563d46674a"
+    },
+    {
+      "$oid": "65f4205779a4de563d466779"
+    }
+  ],
+  "is_default": true,
+  "createdAt": {
+    "$date": "2024-03-15T03:48:55.890Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T10:33:33.818Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f40b115f9742771476cb25"
+  },
+  "name": "5Kg",
+  "price": 4000,
+  "productId": [],
+  "is_default": false,
+  "createdAt": {
+    "$date": "2024-03-15T08:47:13.448Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T08:47:13.448Z"
+  }
+},{
+  "_id": {
+    "$oid": "65f41ff179a4de563d46676c"
+  },
+  "name": "5Kg",
+  "price": 4000,
+  "productId": [],
+  "is_default": false,
+  "createdAt": {
+    "$date": "2024-03-15T10:16:17.685Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T10:16:17.685Z"
+  }
+}]

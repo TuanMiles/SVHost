@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info:
+  title: This is Crud Role User
+  description: Quan ly du an fr 2
+  version: 1.0.0
+  contact:
+    email: .....@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api/'
+    variables:
+      port:
+        enum:
+          - '8000'
+          - '3000'
+        default: '8000'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Role
+    description: Quan ly Role User
+paths:
+  /roles:
+    get:
+      summary: Get all Role User
+      tags:
+        - Role
+      responses:
+        200:
+          description: Get all Role User success
+  /role:
+    post:
+      summary: Create Role User
+      tags:
+        - Role
+      requestBody:
+        description: Create Role
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                users:
+                  type: array
+                  items:
+                    type: string
+        required: true
+      responses:
+        200:
+          description: Crate success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+  /role/{id}:
+    get:
+      summary: Get Role by Id
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Get Role Success
+    put:
+      summary: update Role by Id
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: true
+      responses:
+        200:
+          description: Update Size success
+          content:
+            application/json:
+              $ref: '#/components/schema/Role'
+    delete:
+      summary: Delete Role by Id
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Delete Success
+  /changeStatusRole/{id}:
+    put:
+      summary: update status Role
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          decription: Update Status Role Success
+components:
+  schemas:
+    Role:
+      type: object
+      required:
+        - name
+      properties:
+        _id:
+          type: string
+          description: ID Role
+        name:
+          type: string
+          description: name Role
+        users:
+          type: array
+          items:
+            type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

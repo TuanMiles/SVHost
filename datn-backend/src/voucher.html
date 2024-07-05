@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-YOUR_UNIQUE_NONCE';">
+
+     <title>Document</title>
+</head>
+<body>
+     <center>
+          <form action="/api/find_voucher" method="get">
+               <h2>Tra cứu tài khoản xu khách hàng</h2>
+               <div>
+                    <input id="findVoucher" name="name" type="text" placeholder="mã voucher vd:XHFJD04" style="width:200px"><br>
+                    <div id="found_Voucher"></div>
+                    <button id="findVoucherButton">Xem</button>
+               </div>
+          </form>
+          <form action="/api/edit_voucher" method="get">
+               <h2>Thay đổi điểm  xu khách hàng</h2>
+               <div action="" method="post">
+                    <input type="text" name="name" placeholder="nhập voucher khách hàng" style="width:200px"><br>
+                    <input type="number" name="coin" placeholder="nhập xu " style="width:200px"><br>
+                    <button id="saveButton">Lưu</button>
+               </div>
+          </form>
+          <form action="/api/new_voucher" method="get">
+               <h2>Tạo mã tài khoản xu cho khách hàng</h2>
+               <div>
+                    <input name="name"  type="text" placeholder="mã voucher vd:XHFJD04" style="width:200px" required><br>
+                    <input name="coin" type="number" placeholder="số xu gốc" style="width:200px" required><br>
+                    <button id="createVoucherButton">tạo</button>
+               </div>
+          </form>
+          
+     </center>
+     
+</body>
+
+</html>

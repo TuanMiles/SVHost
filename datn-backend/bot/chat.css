@@ -1,0 +1,42 @@
+.product-link {
+  display: block;
+  width: 150px;
+  height: 200px;
+  padding: 10px;
+  border: 1px #ccc solid;
+  color: white;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.product-link div {
+  height: 40px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.product-link img {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.product-button {
+  width: 118px;
+  height: 35px;
+  background: green;
+  color: white;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.product-button:hover {
+  background-color: #3cb371; /* Lighter green */
+  color: black;
+  font-weight: bold;
+}
